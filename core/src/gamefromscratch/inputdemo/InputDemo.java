@@ -5,14 +5,11 @@ import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class InputDemo extends ApplicationAdapter implements InputProcessor{
@@ -31,10 +28,10 @@ public class InputDemo extends ApplicationAdapter implements InputProcessor{
 	
 	@Override
 	public void create () {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+		w = Gdx.graphics.getWidth();
+		h = Gdx.graphics.getHeight();
 		batch = new SpriteBatch();
-		font = new BitmapFont(Gdx.files.internal("data/arial-15.fnt"), false);
+		font = new BitmapFont();
 		font.setColor(Color.RED);
 		
 		Gdx.input.setInputProcessor(this);
@@ -62,7 +59,7 @@ public class InputDemo extends ApplicationAdapter implements InputProcessor{
 			if (touches.get(i).touched)
 				message += "Finger: " + Integer.toString(i) + " touch at: " + Float.toString(touches.get(i).touchX) + ","+ Float.toString(touches.get(i).touchY) + "\n";
 		}
-		TextBounds tb = font.getBounds(message);
+		TextBounds tb = font.getMultiLineBounds(message);
 		float x = w / 2 - tb.width / 2;
 		float y = h / 2 + tb.height / 2;
 		font.drawMultiLine(batch, message, x, y);
